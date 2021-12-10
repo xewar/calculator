@@ -3,20 +3,20 @@ body{
     display: flex;
     flex-direction: column;
     margin: 40px 0;
-    margin-left: 30px;
+    margin-left: 160px;
  }
-
+ 
 .mainContainer {
     display:flex;
     align-self:flex-start;
     flex-direction: column;
-    background: rgba(255, 72, 176,20%);
-    height: 500px;
+    background: rgba(255, 72, 176,40%);
+    height: 520px;
     width: 340px;
     margin: 0;
-    border-style: solid;
-    border: 2px solid rgba(61, 85, 136, 10%);
-    border-color: rgba(255, 72, 176,5%);
+    border: 5px dotted rgba(255, 232, 0, 100%);
+    mix-blend-mode: multiply;
+    /* border: 5px dotted rgba(61, 85, 136, 20%); */
   }
 
 #content{
@@ -33,25 +33,30 @@ body{
     flex-direction: column;
     background: white;
     border: solid rgba(255, 72, 176,10%);
+    border: 5px dotted rgba(255, 232, 0, 100%);
     height: 70px;
     width: 100%;
     justify-content: center;
     align-self: center;
-    margin: 10px;
+    margin: 15px;
+    gap:4px;
 }
+
 .currentNumber{
-    /* display: flex; */
+    display: flex;
+    justify-content: right;
+    gap: 10px;
     align-self: flex-end;
-    color:rgba(61, 85, 136, 100%);
-    font-size: 36px;
-    display: block;
+    color: rgba(0, 131, 138, 50%);
+    font-size: 30px;
+    /* display: block; */
     width: 100%;
     text-align: right;
 }
 .currentExpression{
-    color:rgba(61, 85, 136, 100%);
+    color: rgba(0, 131, 138, 40%);
     font-size: 18px;
-    display: block;
+    /* display: block; */
     width: 100%;
     text-align: right;
 }
@@ -66,17 +71,80 @@ body{
     font-size: 0;
 }
 
-
 button{
-    background: rgba(61, 85, 136, 25%);
-    border: 2px solid rgba(61, 85, 136, 4%);
-    /* border: 2px solid rgba(255, 72, 176, 10%); // blue border */
+    background: rgba(255, 102, 94, 45%);
+    color:white;
+    border: 5px dotted rgba(255, 102, 94, 80%);
+    border: 5px dotted rgba(255, 232, 0, 100%);
     font-family: 'Courier New', Courier, monospace;
-    font-weight: 400;
+    font-weight: bolder;
     height: 70px;
     width: 70px;
     margin: 5px 0;
     font-size: large;
     padding:0;
-    color:rgba(61, 85, 136, 100%)
+    transition: 0.18s;
+}
+
+.pressed{
+    background: rgba(255, 232, 0, 10%);
+    /* background: rgba(255, 102, 94, 20%); */
+}
+
+span {  /*rotating the second moon*/
+    transform: rotateY(180deg);
+    display: inline-block;
+  }
+  
+ h3{       /*h3, .rosa, and . amarillo are text at the bottom*/
+     margin-top: 50px;
+     margin-left: 20px;
+     font-size: larger;
+     color: rgba(0, 131, 138, 23%);
+     /* color: rgba(255, 232, 0, 100%); */
+
+ }
+ .rosa{
+    top: 571px;
+    z-index: -2;
+    left: 160px;
+    color: rgba(255, 102, 94, 80%);
+    color:rgba(255, 72, 176,40%);
+    position: absolute;
+
+ }
+ .amarillo{
+     /* margin:0; */
+     top: 571px;
+     z-index: -1;
+     left: 161px;
+     color: rgba(255, 232, 0, 60%);
+     /* color: rgba(255, 72, 176,40%); */
+     position: absolute;
+ }
+.container2 {             /*playing a little with the design */
+    height: 540px;
+    width: 30px;
+    background: rgba(255, 232, 0, 30%);
+    border-left: 5px dotted rgba(255, 232, 0, 100%);
+    /* border: 5px dotted rgba(255, 108, 47, 50%);   */
+    z-index:-2;
+    left: 150px;
+    top: 40px;
+    position: absolute; 
+}
+.container3 {
+    height: 20px;
+    width: 350px;
+    /* background: transparent; */
+    background: rgba(0, 131, 138, 20%);
+    border-top: 5px dotted rgba(255, 232, 0, 100%);
+    border-bottom: 5px dotted rgba(255, 232, 0, 100%);
+    border-left: 5px dotted rgba(255, 232, 0, 100%);
+    border-right: 5px dotted rgba(255, 232, 0, 100%);
+    /* border: 5px dotted rgba(255, 108, 47, 50%);   */
+    z-index:-100;
+    left: 150px;
+    top: 557px;
+    position: absolute; 
 }
