@@ -11,7 +11,7 @@ Things that were hardest to figure out or get right:
     + how the calculate function would work. Specifically, how to iterate over and reduce an array of numbers and math symbols following the order of operations, as well as how to account for negative numbers. What ended up helping was writing some pseudocode that broke the problem into smaller steps.
 
 Future add-ons:
-    + Better functionality to deal with large numbers - text wrapping and an expanding display.
+    + Better functionality to deal with large numbers: text wrapping and an expanding display.
 
 Other thoughts:
     + It'll be great to learn how to incorporate Creative Suite type tools into my workflow. But it was also sort of fun to go back to the basics and design with the limitations of my knowledge of CSS. 
