@@ -1,53 +1,10 @@
-/* Next steps
-- get number keys to work
-- can't divide by 0
-- deal with decimals - TOP has guidance on this
-    - decimal button, also when the answer is a long decimal
-- can't add more than one decimal
-- get del key to work
-
-
-- work on the design - there's gotta be something you can do
-    - barebones calculator
-- exponents?
-*/
-
-
-//Basic Functions
-function add(x,y) {
-    return x + y
-}
-function subtract(x,y) {
-    return x-y
-}
-function multiply(x,y) {
-    return x*y
-}
-function power (x,y) {
-    return x**y
-}
-function divide (x,y) {
-    return x/y
-}
-
-
-function operate(operator,x,y){
-    operators = {
-        '+': add(x,y),
-        '-': subtract(x,y),
-        '*': multiply(x,y),
-        "/": divide(x,y),
-        '^': power(x,y)
-    }
-    return operators[operator]
-}
-
 //Saving what should be calculated + displayed
-let displayVariable = [] //tracking all the numbers and operators input 
-let t = [''] //for multidigit numbers
+let displayVariable = [] //tracking all the numbers and operators as an array
+let t = ''; //for multidigit numbers
 let currentNumber = document.querySelector('.currentNumber') //the bottom line on the display
-let currentExpression = document.querySelector('.currentExpression')
+let currentExpression = document.querySelector('.currentExpression') //top line - expression that is displayed
 let decimalCount = 0
+let significantFigures = 16
 
 
 //Selecting the Numbers
@@ -68,8 +25,44 @@ function numberSelector(){
             return //can only use the decimal button once per number
             }}
     t += this.textContent //string of current digits making up the number
+    if (t.length >= significantFigures){
+        return
+    }
+    console.log('here')
     currentNumber.textContent = t
     }
+
+
+//Using the Operator Buttons (+,-,etc...)
+let operatorButtons = document.querySelectorAll('.basicOps');
+operatorButtons.forEach(btn => btn.addEventListener('click',operationSelector));
+operatorButtons.forEach(btn => btn.addEventListener('click',animate));
+operatorButtons.forEach(number => number.addEventListener('transitionend', removeAnimation));
+
+function operationSelector(){
+    if (calculationDone === 1) {
+        clearAll() //start afresh if you've already pressed enter
+    }
+    if (t != '') { //don't add an empty string to the array to be calculated
+        console.log('there')
+        t = t.slice(0,significantFigures-1)
+        displayVariable.push(t)
+        currentNumber.textContent = this.textContent;
+    }
+    if (!t || t.length === 0){ //can start an expression with a minus but not any of the others
+        if (this.textContent === '-') {
+            t += this.textContent
+            currentNumber.textContent += t
+        }
+        else return
+    }
+    displayVariable.push(this.textContent)
+    t =['']
+    currentExpression.textContent = displayVariable.join('') //the currentExpression array is displayed as a string
+    decimalCount = 0
+}
+
+
 //Using your keyboard (in addition to the GUI) to select the numbers
 document.addEventListener('keydown',isNumberOrDecimalKey);
 function isNumberOrDecimalKey(e){
@@ -90,38 +83,6 @@ function isNumberOrDecimalKey(e){
             }
         }
     }}
-
-//button animations
-function animate(){
-    this.setAttribute('class','pressed')
-}
-function removeAnimation(){
-    this.removeAttribute('class','pressed')
-}
-
-//Using the Operator Buttons (+,-,etc...)
-let operatorButtons = document.querySelectorAll('.basicOps');
-operatorButtons.forEach(btn => btn.addEventListener('click',operationSelector));
-operatorButtons.forEach(btn => btn.addEventListener('click',animate));
-operatorButtons.forEach(number => number.addEventListener('transitionend', removeAnimation));
-
-function operationSelector(){
-    if (calculationDone === 1) {
-        clearAll() //start afresh if you've already pressed enter
-    }
-
-    if (t != '') { //don't add an empty string to the array to be calculated
-        displayVariable.push(t)
-        currentNumber.textContent = t
-    }
-    displayVariable.push(this.textContent)
-    t =['']
-    currentExpression.textContent = displayVariable.join('') //the currentExpression array is displayed as a string
-    decimalCount = 0
-}
-
-
-
 
 //Rounding and floating point precision
 function strip(number) { //Pedro Ladaria's solution, from https://stackoverflow.com/questions/1458633/how-to-deal-with-floating-point-number-precision-in-javascript 
@@ -153,12 +114,21 @@ function deleteLastNumber(){
 let clear = document.querySelector('.clear')
 clear.addEventListener('click',clearAll)
 function clearAll(){
-    t = ['']
+    t = '';
     displayVariable =[];
     currentNumber.textContent ='';
     currentExpression.textContent = '';
     calculationDone = 0;
 }  
+
+
+//button animations
+function animate(){
+    this.setAttribute('class','pressed')
+}
+function removeAnimation(){
+    this.removeAttribute('class','pressed')
+}
 
 //Calculating the value of the statement
 let equals = document.querySelector('.equals')
@@ -168,7 +138,8 @@ function calculate(){
     calculationDone = 1;
     currentExpression.textContent = displayVariable.join('');
     let PEMDAS = ['^','/','*','-','+'];
-//Store negative numbers with their signs
+
+    //Store negative numbers with their signs
     //if expression starts with a minus sign, the first number is negative
     if (displayVariable[0] === '-') {
         displayVariable.shift();
@@ -180,6 +151,12 @@ function calculate(){
             let combined = displayVariable.splice(i,2);
             displayVariable.splice(i,0,combined[0]+combined[1]);
         }
+    }
+    //Dividing by zero > undefined
+    for (let i = 0; i < displayVariable.length; i++) {
+        if (displayVariable[i] === '/' && displayVariable[i+1] === '0') {
+        currentNumber.textContent = 'undefined'
+        return }
     }
 
     //Main calculate function
@@ -203,10 +180,11 @@ function calculate(){
     if (stripped.slice(-1) === '.') {//and the decimal if zeroes to right
         stripped = stripped.slice(0,stripped.length-1);
     }
+
     //adding in commas left of decimal
     //take the length of a string to the left of decimal
     function addComma(){
-        let int = stripped.search(/\./)
+        let int = stripped.search(/\./);
         if (int === -1) {
             int = stripped.length;
         }
@@ -216,12 +194,39 @@ function calculate(){
            }
         }
         if (stripped.slice(0,2) === '-,'){ //correction for negative numbers
-            stripped = '-' + stripped.slice(2)
+            stripped = '-' + stripped.slice(2);
         }
         }
-    addComma(stripped)
+    addComma(stripped);
     currentNumber.textContent = stripped;
     }
 
+//Basic Functions
+function add(x,y) {
+    return x + y
+}
+function subtract(x,y) {
+    return x-y
+}
+function multiply(x,y) {
+    return x*y
+}
+function power (x,y) {
+    return x**y
+}
+function divide (x,y) {
+    return x/y
+}
+
+function operate(operator,x,y){
+    operators = {
+        '+': add(x,y),
+        '-': subtract(x,y),
+        '*': multiply(x,y),
+        "/": divide(x,y),
+        '^': power(x,y)
+    }
+    return operators[operator]
+}
 
 

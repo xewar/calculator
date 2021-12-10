@@ -13,7 +13,7 @@ Things that were hardest to figure out or get right:
 
 
 Future add-ons:
-    + Functionality to deal with large numbers (more than 14 significant digits), and adding e as the last button
+    + Better functionality to deal with large numbers - text wrapping and an expanding display.
 
 Other thoughts:
     + It'll be great to learn how to incorporate Creative Suite type tools into my workflow. But it was also sort of fun to go back to the basics and design with the limitations of my knowledge of CSS. 
