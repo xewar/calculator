@@ -1,7 +1,7 @@
 A colorful calculator. View the live project [here](https://xewar.github.io/calculator/).
 
 This project helped me feel more comfortable with loops, string and array methods, as well as event listeners and their interactions. So far one of the things I like about programming is that there are many different ways to approach and solve a problem, with more and less elegant solutions. It reminds me of an Ewe proverb - "Adaata so ha, me lo eme.
-Although the grass looks even, there are paths in between." Source: http://afriprov.org/images/afriprov/books/ewe100proverbs.pdf Cephas Yao Agbemenu, the person who compiled these proverbs, offers the meaning as "every problem has a way of solving it," and "all people are not the same." I like this second interpretation that alludes to the existence of multiple possibilities.
+Although the grass looks even, there are paths in between." [Source](http://afriprov.org/images/afriprov/books/ewe100proverbs.pdf) Cephas Yao Agbemenu, the person who compiled these proverbs, offers the meaning as "every problem has a way of solving it," and "all people are not the same." I like this second interpretation that alludes to the existence of multiple possibilities.
 
 Things that I learned or got a lot of practice with on this project:
     + How to make functions work with both clicks on buttons and keyboard shortcuts
